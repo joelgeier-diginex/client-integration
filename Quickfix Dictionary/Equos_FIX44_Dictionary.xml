@@ -11,12 +11,20 @@ Version | Date       | Notes
 0.1     | 2020-01-06 | Commenced coding 
 0.2     | 2020-01-16 | Completed coding 
 0.3     | 2020-01-18 | Refactor for Equos
-        |            | - 
+
+
+0.7     | 2020-04-15 | CancelOnDisconenct added   
+
+FIX50 Taags
+ 
+- 1409 SessionStatus (unsupported as at Gateway 2.2
 
 CUSTOM TAGS
-- 5000
+
+- 6867 CancelOnDisconnect
 
 -->
+
 <fix major="4" minor="4">
     <header>
         <field name="BeginString" required="Y"/>
@@ -24,41 +32,80 @@ CUSTOM TAGS
         <field name="MsgType" required="Y"/>
         <field name="SenderCompID" required="Y"/>
         <field name="TargetCompID" required="Y"/>
+        <!-- <field name="OnBehalfOfCompID" required="N"/> -->
+        <!-- <field name="DeliverToCompID" required="N"/> -->
         <field name="MsgSeqNum" required="Y"/>
+        <!-- <field name="SenderSubID" required="N"/> -->
+        <!-- <field name="SenderLocationID" required="N"/> -->      
         <field name="SenderSubID" required="N"/>
         <field name="SenderLocationID" required="N"/>
         <field name="PossDupFlag" required="N"/>
         <field name="SendingTime" required="Y"/>
         <field name="OrigSendingTime" required="N"/>
     </header>
+        
     <trailer>
         <field name="CheckSum" required="Y"/>
     </trailer>
-    <!--  All Gateways - Admin Messages  -->
+        
     <messages>
+
+    <!--  All Gateways - Admin Messages  -->
+            
+    <!--  FIX Session Managemetn 03.Heartbeat  -->                   
+            
         <message name="Heartbeat" msgtype="0" msgcat="admin">
             <field name="TestReqID" required="N"/>
         </message>
+            
+    <!--  FIX Session Managemetn 01.Login  -->           
+            
         <message name="Logon" msgtype="A" msgcat="admin">
             <field name="EncryptMethod" required="Y"/>
             <field name="HeartBtInt" required="Y"/>
             <field name="ResetSeqNumFlag" required="N"/>
+            <field name="Username" required="N"/>
             <field name="Password" required="N"/>
+            <field name="CancelOnDisconnect" required="N"/>   
         </message>
+            
+        <!--  FIX Session Managemetn 04.TestRequest  -->                           
+            
         <message name="TestRequest" msgtype="1" msgcat="admin">
             <field name="TestReqID" required="Y"/>
         </message>
+            
+        <!--  FIX Session Management 05.ResendRequest  -->                
+            
         <message name="ResendRequest" msgtype="2" msgcat="admin">
             <field name="BeginSeqNo" required="Y"/>
             <field name="EndSeqNo" required="Y"/>
         </message>
+            
+        <!--  FIX Session Management 06.Reject  -->             
+            
+        <message name="Reject" msgtype="3" msgcat="app">
+            <field name="RefSeqNum" required="N"/>        
+            <field name="RefTagID" required="Y"/>                
+            <field name="RefMsgType" required="Y"/>
+            <field name="SessionRejectReason" required="Y"/>
+            <field name="Text" required="N"/>
+        </message>            
+            
         <message name="SequenceReset" msgtype="4" msgcat="admin">
             <field name="GapFillFlag" required="N"/>
             <field name="NewSeqNo" required="Y"/>
         </message>
+            
+            
         <message name="Logout" msgtype="5" msgcat="admin">
             <field name="Text" required="N"/>
+            <!-- <field name="SessionStatus" required="N"/> -->
+                
         </message>
+            
+        <!--  FIX Session Management 08.BusinessMessageReject  -->                 
+            
         <message name="BusinessMessageReject" msgtype="j" msgcat="app">
             <field name="RefSeqNum" required="N"/>
             <field name="RefMsgType" required="Y"/>
@@ -66,19 +113,9 @@ CUSTOM TAGS
             <field name="SessionRejectReason" required="Y"/>
             <field name="BusinessRejectReason" required="Y"/>
         </message>
-        <message name="UserRequest" msgtype="BE" msgcat="app">
-            <field name="UserRequestID" required="Y"/>
-            <field name="UserRequestType" required="Y"/>
-            <field name="Username" required="Y"/>
-            <field name="Password" required="Y"/>
-            <field name="NewPassword" required="Y"/>
-        </message>
-        <message name="UserResponse" msgtype="BF" msgcat="app">
-            <field name="UserRequestID" required="Y"/>
-            <field name="Username" required="Y"/>
-            <field name="UserStatus" required="Y"/>
-            <field name="UserStatusText" required="N"/>
-        </message>
+            
+
+       
 
         <!--  Market Data Gateway - Supported Messages  -->
         <!-- need some help to check the FIX44 vs FIX5 structures-->
