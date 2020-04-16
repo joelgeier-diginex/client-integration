@@ -110,7 +110,6 @@ CUSTOM TAGS
             <field name="RefSeqNum" required="N"/>
             <field name="RefMsgType" required="Y"/>
             <field name="RefTagID" required="Y"/>
-            <field name="SessionRejectReason" required="Y"/>
             <field name="BusinessRejectReason" required="Y"/>
         </message>
             
