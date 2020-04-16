@@ -120,7 +120,7 @@ CUSTOM TAGS
         <!--  Market Data Gateway - Supported Messages  -->
         <!-- need some help to check the FIX44 vs FIX5 structures-->
 
-        <!-- 14 done -->
+        <!-- FIX13 MarketDataRequest ready for checking -->
 
         <message name="MarketDataRequest" msgtype="V" msgcat="app">
             <field name="MDReqID" required="Y"/>
@@ -132,7 +132,7 @@ CUSTOM TAGS
             <component name="InstrmtMDReqGrp" required="Y"/>
         </message>
 
-        <!--16 done-->
+        <!--FIX16 MarketDataIncrementalRefresh ready for checking -->
 
         <message name="MarketDataIncrementalRefresh" msgtype="X" msgcat="app">
             <field name="MDReqID" required="N"/>
@@ -140,17 +140,22 @@ CUSTOM TAGS
                 <field name="MDUpdateAction" required="Y"/>
                 <field name="DeleteReason" required="N"/>
                 <field name="MDEntryType" required="N"/>
-                <field name="MDEntryID" required="N"/>
-                <!--<component name="Instrument" required="N"/>-->
+                <!-- <field name="MDEntryID" required="N"/>  -->
+                <!-- <component name="Instrument" required="N"/> -->
                 <field name="Symbol" required="Y"/>
+             <!-- need to consider the extended symbology requirements -->>
+                <!-- <field name="SecurityID" required="N"/>  -->
+                <!-- <field name="SecurityIDSource" required="N"/>  -->
+                <!-- <field name="CFICode" required="N"/>  -->
+                <!-- <field name="MarketID" required="N"/>  -->
                 <field name="MDEntryPx" required="N"/>
-                <field name="Currency" required="N"/>
+                <!-- <field name="Currency" required="N"/> -->
                 <field name="MDEntrySize" required="N"/>
-                <feild name="TickerType" required="N"/>
-                <field name="MinQty" required="N"/>
-                <field name="NumberOfOrders" required="N"/>
-                <field name="Text" required="N"/>
-                <field name="OpenCloseSettlFlag" required="N"/>
+                <!-- <feild name="TickerType" required="N"/> -->
+                <!-- <field name="MinQty" required="N"/> -->
+                <!-- <field name="NumberOfOrders" required="N"/> -->
+                <!-- <field name="Text" required="N"/> -->
+                <!--< field name="OpenCloseSettlFlag" required="N"/>  -->
             </group>
             <field name="TransactTime" required="Y"/>
             <field name="EventIndicator" required="N"/>
